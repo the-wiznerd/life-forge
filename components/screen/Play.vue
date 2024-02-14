@@ -1,12 +1,7 @@
 <template>
   <div class="screen screen--play">
     <div v-if="shuffledCards.length" class="card-deck" @click="shuffle">
-      <AppCard
-        v-for="card in shuffledCards"
-        :key="card.id"
-        :card="card"
-        :is-face-up="card.id === topCard?.id"
-      />
+      <AppCard v-for="card in shuffledCards" :key="card.id" :card="card" />
     </div>
   </div>
 </template>
