@@ -30,6 +30,7 @@ $border-width: 6px;
 
 .card {
   height: var(--card-height);
+  position: relative;
   width: var(--card-width);
 }
 

@@ -2,7 +2,7 @@
   <div>
     <ScreenLoading v-if="appState === AppState.Loading" />
     <ScreenTitle v-else-if="appState === AppState.Welcome" />
-    <ScreenPlay v-else-if="appState === AppState.Play" />
+    <ScreenDeck v-else-if="appState === AppState.Deck" />
   </div>
 </template>
 
@@ -10,13 +10,13 @@
   enum AppState {
     Loading,
     Welcome,
-    Play
+    Deck
   }
 
   const appState = ref<AppState>(AppState.Loading)
 
-  onMounted(() => {
+  onBeforeMount(() => {
     // @todo: Check for a save file.
-    appState.value = AppState.Play
+    appState.value = AppState.Deck
   })
 </script>

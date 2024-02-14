@@ -1,6 +1,6 @@
 export default defineNuxtConfig({
   css: ['@/assets/styles/styles.scss'],
-  devtools: { enabled: true },
+  devtools: { enabled: false },
   imports: {
     dirs: ['types', 'store', 'utilities']
   },
