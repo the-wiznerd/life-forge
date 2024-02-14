@@ -1,0 +1,96 @@
+{
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "@nuxtjs/eslint-config-typescript",
+    "plugin:prettier/recommended",
+    "plugin:nuxt/recommended"
+  ],
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser"
+  },
+  "plugins": [],
+  "ignorePatterns": [
+    "**/*.generated.*"
+  ],
+  "rules": {
+    "func-call-spacing": "off",
+    "no-labels": [
+      "error",
+      {
+        "allowLoop": true
+      }
+    ],
+    "@typescript-eslint/consistent-type-imports": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "quotes": [
+      2,
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "semi": [
+      2,
+      "never"
+    ],
+    "space-before-function-paren": "off",
+    "vue/multiline-html-element-content-newline": [
+      "error",
+      {
+        "ignores": [
+          "nuxt-link"
+        ]
+      }
+    ],
+    "vue/multi-word-component-names": "off",
+    "vue/no-v-html": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "semi": false,
+        "singleQuote": true,
+        "trailingComma": "none",
+        "vueIndentScriptAndStyle": true,
+        "arrowParens": "avoid"
+      }
+    ],
+    "vue/attributes-order": [
+      "error",
+      {
+        "order": [
+          "DEFINITION",
+          "LIST_RENDERING",
+          "CONDITIONALS",
+          "RENDER_MODIFIERS",
+          "GLOBAL",
+          [
+            "UNIQUE",
+            "SLOT"
+          ],
+          "TWO_WAY_BINDING",
+          "OTHER_DIRECTIVES",
+          "OTHER_ATTR",
+          "EVENTS",
+          "CONTENT"
+        ],
+        "alphabetical": true
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.vue"
+      ],
+      "rules": {
+        "indent": "off"
+      }
+    }
+  ]
+}
