@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   imports: {
     dirs: ['types', 'store', 'utilities']
   },
+  modules: ['@pinia/nuxt'],
   plugins: ['~/plugins/Store.ts'],
   ssr: false,
   typescript: {

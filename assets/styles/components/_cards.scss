@@ -1,0 +1,55 @@
+$border-inset: 20px;
+$border-width: 6px;
+
+.card-deck {
+  border-radius: 20px;
+  box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.3);
+  height: var(--card-height);
+  position: relative;
+  width: var(--card-width);
+
+  .card {
+    left: 0;
+    position: absolute;
+    top: 0;
+
+    &:nth-child(1) {
+      transform: rotate(-2deg) translateY(3px);
+    }
+
+    &:nth-child(2) {
+      transform: rotate(1deg);
+    }
+
+    &:nth-child(3) {
+      transform: rotate(-1deg) translateY(-2px);
+    }
+  }
+}
+
+.card {
+  height: var(--card-height);
+  width: var(--card-width);
+}
+
+.card__back {
+  background-color: var(--card-color-bg);
+  border: 2px solid var(--card-color-bg-tint);
+  border-radius: var(--card-border-radius);
+  inset: 0;
+  position: relative;
+  position: absolute;
+
+  &::before {
+    background-color: hsl(42deg 67% 71%);
+    border: $border-width solid hsl(42deg 50% 50%);
+    border-radius: 10px;
+    content: '';
+    display: block;
+    height: calc(var(--card-height) - ($border-inset * 2 + $border-width * 2));
+    left: $border-inset;
+    position: absolute;
+    top: $border-inset;
+    width: calc(var(--card-width) - ($border-inset * 2 + $border-width * 2));
+  }
+}
