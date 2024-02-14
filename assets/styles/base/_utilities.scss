@@ -1,0 +1,11 @@
+.stat-category--health {
+  --stat-color: #{var(--stat-color-health)};
+}
+
+.stat-category--cleanliness {
+  --stat-color: #{var(--stat-color-cleanliness)};
+}
+
+.stat-category--personal-care {
+  --stat-color: #{var(--stat-color-personal-care)};
+}
