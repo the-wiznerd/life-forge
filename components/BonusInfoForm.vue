@@ -81,7 +81,7 @@
   }
 
   function submit() {
-    const scores: Record<StatCategory, number> = {
+    const stats: Record<StatCategory, number> = {
       health: 0,
       cleanliness: 0,
       personalCare: 0
@@ -90,13 +90,13 @@
     // Add bonuses.
     for (const bonusIndex in bonusMultipliers.value) {
       const bonus = props.card.bonuses[bonusIndex]
-      scores[bonus.statCategory] +=
+      stats[bonus.statCategory] +=
         bonus.value * bonusMultipliers.value[bonusIndex]
     }
 
     // Add base card value.
-    scores[props.card.statCategory] += props.card.value
+    stats[props.card.statCategory] += props.card.value
 
-    emit('submit', scores)
+    emit('submit', stats)
   }
 </script>
