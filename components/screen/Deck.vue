@@ -16,7 +16,7 @@
 
     <div class="button-list">
       <template v-if="currentCard">
-        <AppButton>Complete</AppButton>
+        <AppButton @click="completeCard">Complete</AppButton>
         <AppButton variant="link" @click="discardCurrentCard">Skip</AppButton>
       </template>
       <AppButton v-else @click="drawCard">Draw Card</AppButton>
@@ -35,6 +35,13 @@
     shuffledCards.value.length
       ? shuffledCards.value[shuffledCards.value.length - 1]
       : null
+  )
+
+  watch(
+    () => store.incompleteCards,
+    () => {
+      shuffleCards()
+    }
   )
 
   function shuffleCards() {
@@ -59,5 +66,15 @@
       store.discardCurrentCard()
       shuffleCards()
     }
+  }
+
+  function completeCard() {
+    if (!currentCard.value) {
+      return
+    }
+
+    // @todo Add up stats
+    store.completeCard(currentCard.value)
+    store.currentCard = undefined
   }
 </script>

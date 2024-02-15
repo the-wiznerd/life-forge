@@ -63,6 +63,21 @@ export const useStore = defineStore('store', () => {
   })
 
   /**
+   * Mark a card complete.
+   */
+  function completeCard(card: Card) {
+    if (completedCards.value.includes(card)) {
+      return
+    }
+
+    completedCards.value.push(card)
+    setLocalStorageValue(
+      StorageKey.CompletedCards,
+      completedCards.value.map(x => x.id)
+    )
+  }
+
+  /**
    * Set the given card as the new current card.
    */
   function drawCard(card: Card) {
@@ -108,10 +123,15 @@ export const useStore = defineStore('store', () => {
   }
 
   // Pull in the completed cards from local storage, if any.
-  // const _completedCards = getLocalStorageValue(StorageKey.CompletedCards)
-  // if (typeof _completedCards === 'array') {
-  //   // userProfile.value.personalCare = Math.max(0, _personalCareStat)
-  // }
+  const _completedCardIds = getLocalStorageValue(StorageKey.CompletedCards)
+  if (typeof _completedCardIds === 'object' && _completedCardIds !== null) {
+    Object.values(_completedCardIds).forEach(id => {
+      const _card = allCards.value.find(x => x.id === id)
+      if (_card) {
+        completedCards.value.push(_card)
+      }
+    })
+  }
 
   // Pull in the current card from local storage, if any.
   const _currentCardId = getLocalStorageValue(StorageKey.CurrentCard)
@@ -133,6 +153,7 @@ export const useStore = defineStore('store', () => {
     completedCards,
     incompleteCards,
     currentCard,
+    completeCard,
     drawCard,
     discardCurrentCard
   }
