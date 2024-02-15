@@ -1,12 +1,11 @@
 <template>
   <div class="screen screen--deck">
-    <div
-      v-if="shuffledCards.length && !currentCard?.value"
-      class="card-deck"
-      @click="drawCard"
-    >
+    <!-- Deck -->
+    <div v-if="shuffledCards.length && !currentCard?.value" class="card-deck">
       <AppCard v-for="card in shuffledCards" :key="card.id" :card="card" />
     </div>
+
+    <!-- Current card -->
     <AppCard
       v-if="currentCard"
       :card="currentCard"
@@ -14,11 +13,22 @@
       is-face-up
     />
 
+    <!-- Done message -->
     <h1 v-if="!shuffledCards.length" class="screen__title">Done!</h1>
 
+    <!-- Bonus confirmation -->
+    <AppPopup ref="popup">
+      <BonusInfoForm
+        v-if="currentCard"
+        :card="currentCard"
+        @submit="addScores"
+      />
+    </AppPopup>
+
+    <!-- Actions -->
     <div class="button-list">
       <template v-if="currentCard">
-        <AppButton @click="completeCard">Complete</AppButton>
+        <AppButton @click="onComplete">Complete</AppButton>
         <AppButton variant="link" @click="skipCard">Skip</AppButton>
       </template>
       <AppButton v-else-if="shuffledCards.length" @click="drawCard">
@@ -32,6 +42,7 @@
   const store = useStore()
 
   const shuffledCards = ref<Card[]>([])
+  const popup = ref()
 
   const currentCard = computed(() => store.currentCard)
 
@@ -75,13 +86,39 @@
     }
   }
 
-  function completeCard() {
+  function onComplete() {
     if (!currentCard.value) {
       return
     }
 
-    // @todo Add up stats
-    store.completeCard(currentCard.value)
-    store.currentCard = undefined
+    // If the card had bonuses, ask about them. Otherwise, go right to completion.
+    if (currentCard.value.bonuses?.length) {
+      popup.value.show()
+    } else {
+      const scores: Record<StatCategory, number> = {
+        health: 0,
+        cleanliness: 0,
+        personalCare: 0
+      }
+      scores[currentCard.value.statCategory] += currentCard.value.value
+      addScores(scores)
+    }
+  }
+
+  function addScores(scores: Record<StatCategory, number>) {
+    popup.value.hide()
+    if (!currentCard.value) {
+      return
+    }
+
+    // Add bonuses.
+    store.userProfile.health += scores.health
+    store.userProfile.cleanliness += scores.cleanliness
+    store.userProfile.personalCare += scores.personalCare
+
+    // Mark the card complete.
+    if (currentCard.value) {
+      store.completeCard(currentCard.value)
+    }
   }
 </script>

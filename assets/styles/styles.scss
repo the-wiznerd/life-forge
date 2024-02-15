@@ -15,11 +15,13 @@
 @use 'assets/styles/components/buttons';
 @use 'assets/styles/components/cards';
 @use 'assets/styles/components/forms';
+@use 'assets/styles/components/popups';
 @use 'assets/styles/components/screens';
 
 ////////////////////////////////////////////////////////////////////////////////
 // One-off styles
 ////////////////////////////////////////////////////////////////////////////////
 
+@use 'assets/styles/singletons/bonus-info-form';
 @use 'assets/styles/singletons/screen--deck';
 @use 'assets/styles/singletons/user-profile';

@@ -11,7 +11,7 @@ declare global {
     description: string
     statCategory: StatCategory
     value: number
-    bonuses?: CardBonus[]
+    bonuses: CardBonus[]
   }
 }
 

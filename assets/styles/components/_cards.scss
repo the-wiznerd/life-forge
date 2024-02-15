@@ -143,6 +143,7 @@ $border-width: 6px;
 .card-bonus__value {
   background-color: var(--stat-color);
   border-radius: 5px;
+  color: var(--color-darker);
   display: inline-block;
   font-weight: bold;
   margin-right: -0.2em;

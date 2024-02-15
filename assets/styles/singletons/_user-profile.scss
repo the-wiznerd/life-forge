@@ -1,24 +1,4 @@
 .user-profile {
-  align-items: center;
-  background-color: var(--color-darker);
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
-  left: 0;
-  opacity: 0;
-  pointer-events: none;
-  position: fixed;
-  top: 0;
-  transition: 0.25s ease;
-  width: 100%;
-  z-index: 100;
-
-  &.is-showing {
-    opacity: 1;
-    pointer-events: all;
-  }
-
   h3 {
     align-self: stretch;
     border-bottom: 2px solid;

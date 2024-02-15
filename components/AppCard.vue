@@ -17,7 +17,7 @@
           <p>{{ card.description }}</p>
           <p></p>
         </div>
-        <div v-if="card.bonuses" class="card__bonuses">
+        <div v-if="card.bonuses.length" class="card__bonuses">
           <p v-for="(bonus, index) in card.bonuses" :key="index">
             <span class="card-bonus">
               <span

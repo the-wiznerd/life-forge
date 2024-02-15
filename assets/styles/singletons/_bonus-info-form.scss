@@ -1,0 +1,25 @@
+
+.bonus-info-form {
+  max-width: 500px;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  .button[type='submit'] {
+    margin-top: 30px;
+  }
+}
+
+.bonus-info-form__card-bonuses {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .card-bonus {
+    align-items: center;
+    display: flex;
+    gap: 30px;
+  }
+}
