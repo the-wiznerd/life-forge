@@ -64,7 +64,6 @@ export const useStore = defineStore('store', () => {
     const _cards: Card[] = []
     for (const card of allCards.value) {
       if (!_completedCards.value.find(x => x.id === card.id)) {
-        console.log(card.id)
         _cards.push(card)
       }
     }
