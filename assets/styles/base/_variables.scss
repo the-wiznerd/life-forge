@@ -1,4 +1,8 @@
 :root {
+  --color-dark: hsl(328deg 54% 20%);
+  --color-darker: hsl(327.86deg 92.73% 9.47%);
+  --color-light: hsl(42deg 100% 87%);
+
   --card-width: 300px;
   --card-height: 450px;
   --card-border-radius: 20px;
@@ -9,7 +13,7 @@
   --font-base: 'Gabriela', serif;
   --font-display: 'Pirata One', system-ui;
 
-  --stat-color-personal-care: hsl(347.15deg 89.44% 71.57%);
+  --stat-color-personalCare: hsl(347.15deg 89.44% 71.57%);
   --stat-color-health: hsl(142.75deg 45.37% 55.59%);
   --stat-color-cleanliness: hsl(200.86deg 84.62% 70.24%);
 }

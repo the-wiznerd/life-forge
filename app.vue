@@ -1,22 +1,45 @@
 <template>
   <div>
-    <ScreenLoading v-if="appState === AppState.Loading" />
-    <ScreenTitle v-else-if="appState === AppState.Welcome" />
-    <ScreenDeck v-else-if="appState === AppState.Deck" />
+    <ScreenLoading v-if="store.appState === AppState.Loading" />
+    <ScreenOnboarding v-else-if="store.appState === AppState.Onboarding" />
+    <ScreenDeck v-else-if="store.appState === AppState.Deck" />
+
+    <AppPopup ref="profile">
+      <UserProfile />
+    </AppPopup>
+
+    <AppButton
+      v-if="store.hasUserProfile"
+      class="button--open-profile"
+      size="sm"
+      variant="link"
+      @click="store.setShowUserProfile(true)"
+    >
+      Profile
+    </AppButton>
   </div>
 </template>
 
 <script setup lang="ts">
-  enum AppState {
-    Loading,
-    Welcome,
-    Deck
-  }
+  const store = useStore()
 
-  const appState = ref<AppState>(AppState.Loading)
+  const profile = ref()
 
-  onBeforeMount(() => {
-    // @todo: Check for a save file.
-    appState.value = AppState.Deck
-  })
+  const showProfilePopup = computed(
+    () => store.hasUserProfile && store.showUserProfile
+  )
+
+  watch(
+    () => showProfilePopup,
+    () => {
+      if (showProfilePopup.value) {
+        profile.value.show()
+      } else {
+        profile.value.hide()
+      }
+    },
+    {
+      deep: true
+    }
+  )
 </script>

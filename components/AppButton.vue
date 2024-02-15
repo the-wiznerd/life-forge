@@ -1,5 +1,8 @@
 <template>
-  <button :class="`button button--${variant}`" type="button">
+  <button
+    :class="`button button--${variant} button--size-${size}`"
+    type="button"
+  >
     <slot />
   </button>
 </template>
@@ -8,9 +11,11 @@
   withDefaults(
     defineProps<{
       variant?: 'default' | 'link'
+      size?: 'default' | 'sm'
     }>(),
     {
-      variant: 'default'
+      variant: 'default',
+      size: 'default'
     }
   )
 </script>

@@ -3,6 +3,7 @@ declare global {
     description: string
     statCategory: StatCategory
     value: number
+    multiplierLabel?: string
   }
 
   type Card = {
@@ -11,7 +12,7 @@ declare global {
     description: string
     statCategory: StatCategory
     value: number
-    bonuses?: CardBonus[]
+    bonuses: CardBonus[]
   }
 }
 
@@ -28,7 +29,7 @@ export const Cards: Card[] = [
     id: 2,
     title: 'Light the Forge',
     description: 'Light a candle. Site with it for 1 minute.',
-    statCategory: 'personal-care',
+    statCategory: 'personalCare',
     value: 1,
     bonuses: []
   },
@@ -36,12 +37,12 @@ export const Cards: Card[] = [
     id: 3,
     title: 'Spell Casting',
     description: 'Meditate for 5 minutes.',
-    statCategory: 'personal-care',
+    statCategory: 'personalCare',
     value: 1,
     bonuses: [
       {
         description: 'if you start levitating.',
-        statCategory: 'personal-care',
+        statCategory: 'personalCare',
         value: 23
       }
     ]
@@ -56,7 +57,8 @@ export const Cards: Card[] = [
       {
         description: 'per 10 pushups in a row after.',
         statCategory: 'health',
-        value: 1
+        value: 1,
+        multiplierLabel: 'Sets of 10'
       }
     ]
   },
@@ -97,7 +99,8 @@ export const Cards: Card[] = [
       {
         description: 'per adventurer.',
         statCategory: 'health',
-        value: 1
+        value: 1,
+        multiplierLabel: 'Other adventurers'
       }
     ]
   },
@@ -133,7 +136,7 @@ export const Cards: Card[] = [
     id: 10,
     title: "A Hobbit's View",
     description: 'Lay on the floor for 2 minutes.',
-    statCategory: 'personal-care',
+    statCategory: 'personalCare',
     value: 1,
     bonuses: []
   },
@@ -149,7 +152,7 @@ export const Cards: Card[] = [
     id: 12,
     title: 'Sweet Rolls',
     description: 'Get a sweet treat.',
-    statCategory: 'personal-care',
+    statCategory: 'personalCare',
     value: 1,
     bonuses: []
   },
@@ -157,11 +160,11 @@ export const Cards: Card[] = [
     id: 13,
     title: 'Potion Brewing',
     description: 'Cook a new recipe.',
-    statCategory: 'personal-care',
+    statCategory: 'personalCare',
     value: 1,
     bonuses: [
       {
-        description: "If it's healthy.",
+        description: "if it's healthy.",
         statCategory: 'health',
         value: 1
       }
@@ -191,7 +194,8 @@ export const Cards: Card[] = [
       {
         description: 'per quart of water you drank today.',
         statCategory: 'health',
-        value: 1
+        value: 1,
+        multiplierLabel: 'Quarts'
       }
     ]
   },
@@ -207,12 +211,12 @@ export const Cards: Card[] = [
     id: 17,
     title: 'Ancient Texts',
     description: 'Read 2 pages of a book.',
-    statCategory: 'personal-care',
+    statCategory: 'personalCare',
     value: 1,
     bonuses: [
       {
         description: 'if you read a chapter.',
-        statCategory: 'personal-care',
+        statCategory: 'personalCare',
         value: 2
       }
     ]

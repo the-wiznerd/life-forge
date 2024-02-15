@@ -1,5 +1,9 @@
 declare global {
-  type StatCategory = 'health' | 'cleanliness' | 'personal-care'
+  type StatCategory = 'health' | 'cleanliness' | 'personalCare'
 }
 
-export {}
+export const StatLabel: Record<StatCategory, string> = {
+  health: 'Health',
+  cleanliness: 'Cleanlinesss',
+  personalCare: 'Personal Care'
+}

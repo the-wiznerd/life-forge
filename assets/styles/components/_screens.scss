@@ -1,7 +1,14 @@
 .screen {
   align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   min-height: 100svh;
   position: relative;
+}
+
+.screen__title {
+  font-family: var(--font-display);
+  font-size: 45px;
+  margin-bottom: 20px;
 }
