@@ -66,6 +66,10 @@ export const useStore = defineStore('store', () => {
    * Mark a card complete.
    */
   function completeCard(card: Card) {
+    if (card.id === currentCard.value?.id) {
+      unsetCurrentCard()
+    }
+
     if (completedCards.value.includes(card)) {
       return
     }
@@ -88,7 +92,7 @@ export const useStore = defineStore('store', () => {
   /**
    * Put the current card back in the deck.
    */
-  function discardCurrentCard() {
+  function unsetCurrentCard() {
     currentCard.value = undefined
     setLocalStorageValue(StorageKey.CurrentCard, '')
   }
@@ -99,6 +103,28 @@ export const useStore = defineStore('store', () => {
   function setFirstName(firstName: string) {
     userProfile.value.firstName = firstName
     setLocalStorageValue(StorageKey.FirstName, firstName)
+  }
+  /**
+   * Log current state info to the console.
+   */
+  function logState() {
+    // eslint-disable-next-line no-console
+    console.info(
+      'all cards',
+      allCards.value.map(x => getCardIdentifierString(x))
+    )
+    // eslint-disable-next-line no-console
+    console.info(
+      'completed cards',
+      completedCards.value.map(x => getCardIdentifierString(x))
+    )
+    // eslint-disable-next-line no-console
+    console.info(
+      'incomplete cards',
+      incompleteCards.value.map(x => getCardIdentifierString(x))
+    )
+    // eslint-disable-next-line no-console
+    console.info('current card', getCardIdentifierString(currentCard.value))
   }
 
   // Pull in the current profile from local storage info, if any.
@@ -142,6 +168,7 @@ export const useStore = defineStore('store', () => {
 
   // Initialize the app state.
   appState.value = hasUserProfile.value ? AppState.Deck : AppState.Onboarding
+  logState()
 
   return {
     appState,
@@ -155,6 +182,7 @@ export const useStore = defineStore('store', () => {
     currentCard,
     completeCard,
     drawCard,
-    discardCurrentCard
+    unsetCurrentCard,
+    logState
   }
 })

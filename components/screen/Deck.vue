@@ -14,12 +14,16 @@
       is-face-up
     />
 
+    <h1 v-if="!shuffledCards.length" class="screen__title">Done!</h1>
+
     <div class="button-list">
       <template v-if="currentCard">
         <AppButton @click="completeCard">Complete</AppButton>
-        <AppButton variant="link" @click="discardCurrentCard">Skip</AppButton>
+        <AppButton variant="link" @click="skipCard">Skip</AppButton>
       </template>
-      <AppButton v-else @click="drawCard">Draw Card</AppButton>
+      <AppButton v-else-if="shuffledCards.length" @click="drawCard">
+        Draw Card
+      </AppButton>
     </div>
   </div>
 </template>
@@ -27,7 +31,7 @@
 <script setup lang="ts">
   const store = useStore()
 
-  const shuffledCards = ref(shuffleCards())
+  const shuffledCards = ref<Card[]>([])
 
   const currentCard = computed(() => store.currentCard)
 
@@ -41,18 +45,21 @@
     () => store.incompleteCards,
     () => {
       shuffleCards()
+    },
+    {
+      immediate: true
     }
   )
 
   function shuffleCards() {
     const _cards: Card[] = []
-    for (const id of store.incompleteCards.map(x => x.id)) {
+    for (const id of shuffleArray(store.incompleteCards.map(x => x.id))) {
       const _card = store.incompleteCards.find(x => x.id === id)
       if (_card) {
         _cards.push(_card)
       }
     }
-    return _cards
+    shuffledCards.value = _cards
   }
 
   function drawCard() {
@@ -61,9 +68,9 @@
     }
   }
 
-  function discardCurrentCard() {
+  function skipCard() {
     if (currentCard.value) {
-      store.discardCurrentCard()
+      store.unsetCurrentCard()
       shuffleCards()
     }
   }
