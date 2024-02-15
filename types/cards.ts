@@ -28,7 +28,7 @@ export const Cards: Card[] = [
     id: 2,
     title: 'Light the Forge',
     description: 'Light a candle. Site with it for 1 minute.',
-    statCategory: 'personal-care',
+    statCategory: 'personalCare',
     value: 1,
     bonuses: []
   },
@@ -36,12 +36,12 @@ export const Cards: Card[] = [
     id: 3,
     title: 'Spell Casting',
     description: 'Meditate for 5 minutes.',
-    statCategory: 'personal-care',
+    statCategory: 'personalCare',
     value: 1,
     bonuses: [
       {
         description: 'if you start levitating.',
-        statCategory: 'personal-care',
+        statCategory: 'personalCare',
         value: 23
       }
     ]
@@ -133,7 +133,7 @@ export const Cards: Card[] = [
     id: 10,
     title: "A Hobbit's View",
     description: 'Lay on the floor for 2 minutes.',
-    statCategory: 'personal-care',
+    statCategory: 'personalCare',
     value: 1,
     bonuses: []
   },
@@ -149,7 +149,7 @@ export const Cards: Card[] = [
     id: 12,
     title: 'Sweet Rolls',
     description: 'Get a sweet treat.',
-    statCategory: 'personal-care',
+    statCategory: 'personalCare',
     value: 1,
     bonuses: []
   },
@@ -157,7 +157,7 @@ export const Cards: Card[] = [
     id: 13,
     title: 'Potion Brewing',
     description: 'Cook a new recipe.',
-    statCategory: 'personal-care',
+    statCategory: 'personalCare',
     value: 1,
     bonuses: [
       {
@@ -207,12 +207,12 @@ export const Cards: Card[] = [
     id: 17,
     title: 'Ancient Texts',
     description: 'Read 2 pages of a book.',
-    statCategory: 'personal-care',
+    statCategory: 'personalCare',
     value: 1,
     bonuses: [
       {
         description: 'if you read a chapter.',
-        statCategory: 'personal-care',
+        statCategory: 'personalCare',
         value: 2
       }
     ]

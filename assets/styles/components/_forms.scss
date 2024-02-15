@@ -1,0 +1,26 @@
+form {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-field {
+  input {
+    background-color: var(--color-darker);
+    border: 2px solid transparent;
+    border-radius: 3px;
+    color: var(--color-light);
+    height: 50px;
+    padding: 5px 10px;
+
+    &:focus {
+      border-color: var(--color-light);
+    }
+  }
+}
+
+.form-field__label {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
