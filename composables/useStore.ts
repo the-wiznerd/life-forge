@@ -13,17 +13,21 @@ export const useStore = defineStore('store', () => {
   /**
    * The current state the app is in.
    */
-  const appState = ref<AppState>(AppState.Loading)
+  const _appState = ref<AppState>(AppState.Loading)
+  const appState = computed(() => _appState.value)
 
   /**
    * The user's profile.
    */
-  const userProfile = ref<UserProfile>({
+  const _userProfile = ref<UserProfile>({
     firstName: '',
     health: 0,
     cleanliness: 0,
     personalCare: 0
   })
+  const userProfile = computed(
+    () => _userProfile.value as Readonly<UserProfile>
+  )
 
   /**
    * Whether or not the user has onboarded and has a profile.
@@ -33,21 +37,24 @@ export const useStore = defineStore('store', () => {
   /**
    * Whether or not the app should currently be showing the user profile.
    */
-  const showUserProfile = ref(false)
+  const _showUserProfile = ref(false)
+  const showUserProfile = computed(() => _showUserProfile.value)
 
   /**
    * All cards in the game.
    */
-  const allCards = computed(() => Cards)
+  const allCards = computed(() => Cards.slice())
   /**
    * The current/active card.
    */
-  const currentCard = ref<Card>()
+  const _currentCard = ref<Card>()
+  const currentCard = computed(() => _currentCard.value)
 
   /**
    * The list of completed cards.
    */
-  const completedCards = ref<Card[]>([])
+  const _completedCards = ref<Card[]>([])
+  const completedCards = computed(() => _completedCards.value.slice())
 
   /**
    * All cards that have not yet been completed.
@@ -61,6 +68,20 @@ export const useStore = defineStore('store', () => {
     }
     return _cards
   })
+
+  /**
+   * Update the app state.
+   */
+  function setAppState(state: AppState) {
+    _appState.value = state
+  }
+
+  /**
+   * Set whether or not to show the user profile.
+   */
+  function setShowUserProfile(state: boolean) {
+    _showUserProfile.value = state
+  }
 
   /**
    * Mark a card complete.
@@ -85,7 +106,7 @@ export const useStore = defineStore('store', () => {
    * Set the given card as the new current card.
    */
   function drawCard(card: Card) {
-    currentCard.value = card
+    _currentCard.value = card
     setLocalStorageValue(StorageKey.CurrentCard, card.id)
   }
 
@@ -93,7 +114,7 @@ export const useStore = defineStore('store', () => {
    * Put the current card back in the deck.
    */
   function unsetCurrentCard() {
-    currentCard.value = undefined
+    _currentCard.value = undefined
     setLocalStorageValue(StorageKey.CurrentCard, '')
   }
 
@@ -101,9 +122,34 @@ export const useStore = defineStore('store', () => {
    * Save the user's first name to their profile.
    */
   function setFirstName(firstName: string) {
-    userProfile.value.firstName = firstName
+    _userProfile.value.firstName = firstName
     setLocalStorageValue(StorageKey.FirstName, firstName)
   }
+
+  /**
+   * Save the user's health stat to their profile.
+   */
+  function setHealthStat(value: number) {
+    _userProfile.value.health = value
+    setLocalStorageValue(StorageKey.HealthStat, value)
+  }
+
+  /**
+   * Save the user's cleanliness stat to their profile.
+   */
+  function setCleanlinessStat(value: number) {
+    _userProfile.value.cleanliness = value
+    setLocalStorageValue(StorageKey.CleanlinessStat, value)
+  }
+
+  /**
+   * Save the user's personal care stat to their profile.
+   */
+  function setPersonalCareStat(value: number) {
+    _userProfile.value.personalCare = value
+    setLocalStorageValue(StorageKey.PersonalCareStat, value)
+  }
+
   /**
    * Log current state info to the console.
    */
@@ -130,22 +176,22 @@ export const useStore = defineStore('store', () => {
   // Pull in the current profile from local storage info, if any.
   const _firstName = getLocalStorageValue(StorageKey.FirstName)
   if (typeof _firstName === 'string') {
-    userProfile.value.firstName = _firstName
+    _userProfile.value.firstName = _firstName
   }
 
   const _healthStat = getLocalStorageValue(StorageKey.HealthStat)
   if (typeof _healthStat === 'number') {
-    userProfile.value.health = Math.max(0, _healthStat)
+    _userProfile.value.health = Math.max(0, _healthStat)
   }
 
   const _cleanlinessStat = getLocalStorageValue(StorageKey.CleanlinessStat)
   if (typeof _cleanlinessStat === 'number') {
-    userProfile.value.cleanliness = Math.max(0, _cleanlinessStat)
+    _userProfile.value.cleanliness = Math.max(0, _cleanlinessStat)
   }
 
   const _personalCareStat = getLocalStorageValue(StorageKey.PersonalCareStat)
   if (typeof _personalCareStat === 'number') {
-    userProfile.value.personalCare = Math.max(0, _personalCareStat)
+    _userProfile.value.personalCare = Math.max(0, _personalCareStat)
   }
 
   // Pull in the completed cards from local storage, if any.
@@ -161,17 +207,19 @@ export const useStore = defineStore('store', () => {
 
   // Pull in the current card from local storage, if any.
   const _currentCardId = getLocalStorageValue(StorageKey.CurrentCard)
-  const _currentCard = allCards.value.find(x => x.id === _currentCardId)
-  if (_currentCard) {
-    currentCard.value = _currentCard
-  }
+  _currentCard.value =
+    allCards.value.find(x => x.id === _currentCardId) || undefined
 
   // Initialize the app state.
-  appState.value = hasUserProfile.value ? AppState.Deck : AppState.Onboarding
+  _appState.value = hasUserProfile.value ? AppState.Deck : AppState.Onboarding
   logState()
 
   return {
     appState,
+    setAppState,
+    setHealthStat,
+    setCleanlinessStat,
+    setPersonalCareStat,
     userProfile,
     hasUserProfile,
     showUserProfile,
@@ -183,6 +231,7 @@ export const useStore = defineStore('store', () => {
     completeCard,
     drawCard,
     unsetCurrentCard,
-    logState
+    logState,
+    setShowUserProfile
   }
 })

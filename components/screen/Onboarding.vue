@@ -20,8 +20,8 @@
     () => store.hasUserProfile,
     () => {
       if (store.hasUserProfile) {
-        store.showUserProfile = true
-        store.appState = AppState.Deck
+        store.setShowUserProfile(true)
+        store.setAppState(AppState.Deck)
       }
     }
   )

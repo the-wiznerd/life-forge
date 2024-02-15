@@ -18,7 +18,7 @@
         />
       </div>
 
-      <AppButton @click="store.showUserProfile = false">Close</AppButton>
+      <AppButton @click="store.setShowUserProfile(false)">Close</AppButton>
     </div>
   </div>
 </template>

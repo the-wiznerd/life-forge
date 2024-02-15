@@ -13,7 +13,7 @@
       class="button--open-profile"
       size="sm"
       variant="link"
-      @click="store.showUserProfile = true"
+      @click="store.setShowUserProfile(true)"
     >
       Profile
     </AppButton>

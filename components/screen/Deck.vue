@@ -120,9 +120,11 @@
     }
 
     // Add bonuses.
-    store.userProfile.health += scores.health
-    store.userProfile.cleanliness += scores.cleanliness
-    store.userProfile.personalCare += scores.personalCare
+    store.setHealthStat(store.userProfile.health + scores.health)
+    store.setCleanlinessStat(store.userProfile.cleanliness + scores.cleanliness)
+    store.setPersonalCareStat(
+      store.userProfile.personalCare + scores.personalCare
+    )
 
     // Show powerups.
     for (const category in scores) {
