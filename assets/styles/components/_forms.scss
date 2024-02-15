@@ -17,7 +17,7 @@ form {
     height: 50px;
     padding: 5px 10px;
 
-    .screen & {
+    .popup & {
       background-color: var(--color-dark);
     }
 
@@ -48,7 +48,7 @@ form {
     transition: 0.25s ease;
     width: 40px;
 
-    .screen & {
+    .popup & {
       background-color: var(--color-dark);
     }
 
