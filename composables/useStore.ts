@@ -1,4 +1,5 @@
 import { AppState } from '#imports'
+import { unsetLocalStorageValue } from '~/utilities/localStorage'
 
 const StorageKey = {
   FirstName: 'firstName',
@@ -152,6 +153,16 @@ export const useStore = defineStore('store', () => {
   }
 
   /**
+   * Reset app data and reload the window.
+   */
+  function resetApp() {
+    Object.values(StorageKey).forEach(key => {
+      unsetLocalStorageValue(key)
+    })
+    location.reload()
+  }
+
+  /**
    * Log current state info to the console.
    */
   function logState() {
@@ -233,6 +244,7 @@ export const useStore = defineStore('store', () => {
     drawCard,
     unsetCurrentCard,
     logState,
-    setShowUserProfile
+    setShowUserProfile,
+    resetApp
   }
 })

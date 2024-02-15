@@ -16,6 +16,13 @@ export function setLocalStorageValue(key: string, value: unknown): void {
 }
 
 /**
+ * Remove a given storage value by its key.
+ */
+export function unsetLocalStorageValue(key: string): void {
+  localStorage.removeItem(namespaceLocalStorageKey(key))
+}
+
+/**
  * Check if the given key is in our storage namespace.
  */
 export function isLocalStorageNamespaceKey(key: string): boolean {

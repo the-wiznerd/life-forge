@@ -136,6 +136,5 @@
 
     // Mark the card complete.
     store.completeCard(currentCard.value)
-    store.logState()
   }
 </script>
