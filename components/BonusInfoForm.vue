@@ -6,24 +6,50 @@
     </h2>
 
     <div class="bonus-info-form__card-bonuses">
-      <label
+      <div
         v-for="(bonus, index) in card.bonuses"
         :key="index"
-        class="card-bonus form-input form-field--checkbox"
+        class="bonus-info-form__card-bonus"
       >
-        <input type="checkbox" @change="change($event, bonus)" />
-        <span class="checkbox"></span>
-        <span class="form-field">
-          <span
-            :class="`card-bonus__value stat-category--${bonus.statCategory}`"
-          >
-            {{ bonus.value }}<small>XP</small>
+        <!-- Checkbox -->
+        <label v-if="!bonus.multiplierLabel" class="form-field--checkbox">
+          <input type="checkbox" @change="toggleCheckbox($event, index)" />
+          <span class="checkbox"></span>
+          <span class="card-bonus">
+            <span
+              :class="`card-bonus__value stat-category--${bonus.statCategory}`"
+            >
+              {{ bonus.value }}<small>XP</small>
+            </span>
+            <span class="card-bonus__description">
+              &nbsp;{{ bonus.description }}
+            </span>
           </span>
-          <span class="card-bonus__description">
-            &nbsp;{{ bonus.description }}
-          </span>
-        </span>
-      </label>
+        </label>
+
+        <!-- Number -->
+        <div v-else>
+          <div class="card-bonus">
+            <span
+              :class="`card-bonus__value stat-category--${bonus.statCategory}`"
+            >
+              {{ bonus.value }}<small>XP</small>
+            </span>
+            <span class="card-bonus__description">
+              &nbsp;{{ bonus.description }}
+            </span>
+          </div>
+          <label class="form-field form-field--number">
+            <div class="form-field__label">{{ bonus.multiplierLabel }}</div>
+            <input
+              min="0"
+              type="number"
+              value="0"
+              @change="changeNumber($event, index)"
+            />
+          </label>
+        </div>
+      </div>
     </div>
 
     <AppButton type="submit"> Done </AppButton>
@@ -39,20 +65,33 @@
     card: Card
   }>()
 
-  const scores = ref<Record<StatCategory, number>>({
-    health: 0,
-    cleanliness: 0,
-    personalCare: 0
-  })
+  const bonusMultipliers = ref<Record<number, number>>({})
 
-  function change(event: Event, bonus: CardBonus) {
-    if ((event.target as HTMLInputElement).checked) {
-      scores.value[bonus.statCategory] += bonus.value
-    }
+  function toggleCheckbox(event: Event, bonusIndex: number) {
+    bonusMultipliers.value[bonusIndex] = (event.target as HTMLInputElement)
+      .checked
+      ? 1
+      : 0
+  }
+
+  function changeNumber(event: Event, bonusIndex: number) {
+    bonusMultipliers.value[bonusIndex] = parseInt(
+      (event.target as HTMLInputElement).value
+    )
   }
 
   function submit() {
-    scores.value[props.card.statCategory] += props.card.value
-    emit('submit', scores.value)
+    const scores: Record<StatCategory, number> = {
+      health: 0,
+      cleanliness: 0,
+      personalCare: 0
+    }
+    for (const bonusIndex in bonusMultipliers.value) {
+      const bonus = props.card.bonuses[bonusIndex]
+      scores[bonus.statCategory] +=
+        bonus.value * bonusMultipliers.value[bonusIndex]
+    }
+
+    emit('submit', scores)
   }
 </script>

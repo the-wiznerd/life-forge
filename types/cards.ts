@@ -3,6 +3,7 @@ declare global {
     description: string
     statCategory: StatCategory
     value: number
+    multiplierLabel?: string
   }
 
   type Card = {
@@ -56,7 +57,8 @@ export const Cards: Card[] = [
       {
         description: 'per 10 pushups in a row after.',
         statCategory: 'health',
-        value: 1
+        value: 1,
+        multiplierLabel: 'Sets of 10'
       }
     ]
   },
@@ -97,7 +99,8 @@ export const Cards: Card[] = [
       {
         description: 'per adventurer.',
         statCategory: 'health',
-        value: 1
+        value: 1,
+        multiplierLabel: 'Other adventurers'
       }
     ]
   },
@@ -161,7 +164,7 @@ export const Cards: Card[] = [
     value: 1,
     bonuses: [
       {
-        description: "If it's healthy.",
+        description: "if it's healthy.",
         statCategory: 'health',
         value: 1
       }
@@ -191,7 +194,8 @@ export const Cards: Card[] = [
       {
         description: 'per quart of water you drank today.',
         statCategory: 'health',
-        value: 1
+        value: 1,
+        multiplierLabel: 'Quarts'
       }
     ]
   },

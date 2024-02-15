@@ -13,13 +13,32 @@
 }
 
 .bonus-info-form__card-bonuses {
+  align-items: stretch;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
+}
 
+.bonus-info-form__card-bonus {
   .card-bonus {
+    flex: 1;
+    text-align: left;
+  }
+
+  .form-field--checkbox {
     align-items: center;
     display: flex;
+    flex-direction: row-reverse;
     gap: 30px;
+  }
+
+  .form-field--number {
+    margin-top: 10px;
+    text-align: left;
+    width: 100%;
+
+    input {
+      width: 100%;
+    }
   }
 }

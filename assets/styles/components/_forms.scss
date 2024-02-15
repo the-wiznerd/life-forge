@@ -6,6 +6,7 @@ form {
 }
 
 .form-field {
+  display: block;
   text-align: center;
 
   input {
@@ -16,8 +17,13 @@ form {
     height: 50px;
     padding: 5px 10px;
 
+    .screen & {
+      background-color: var(--color-dark);
+    }
+
     &:focus {
       border-color: var(--color-light);
+      outline: 0 none;
     }
   }
 }
@@ -32,16 +38,19 @@ form {
   }
 
   .checkbox {
-    background-color: var(--color-dark);
-    border: 2px solid var(--color-light);
-    border-radius: 5px;
+    background-color: var(--color-darker);
+    border: 2px solid transparent;
+    border-radius: 3px;
     content: '';
     display: block;
     height: 40px;
-    opacity: 0.5;
     position: relative;
     transition: 0.25s ease;
     width: 40px;
+
+    .screen & {
+      background-color: var(--color-dark);
+    }
 
     &::after {
       border-color: var(--color-light);
@@ -63,14 +72,12 @@ form {
   &:hover,
   &:focus-visible {
     .checkbox {
-      opacity: 1;
+      border-color: var(--color-light);
       transform: scale(1.1);
     }
   }
 
   input[type='checkbox']:checked + .checkbox {
-    opacity: 1;
-
     &::after {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1) rotate(-45deg);

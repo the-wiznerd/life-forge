@@ -1,7 +1,11 @@
 <template>
   <div class="screen screen--deck">
     <!-- Deck -->
-    <div v-if="shuffledCards.length && !currentCard?.value" class="card-deck">
+    <div
+      v-if="shuffledCards.length && !currentCard?.value"
+      class="card-deck"
+      @click="drawCard"
+    >
       <AppCard v-for="card in shuffledCards" :key="card.id" :card="card" />
     </div>
 
