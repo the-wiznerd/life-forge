@@ -6,6 +6,14 @@
 
     <AppPopup ref="profile">
       <UserProfile />
+      <AppButton
+        class="button--reset-app"
+        size="sm"
+        variant="link"
+        @click="resetApp"
+      >
+        Reset app data
+      </AppButton>
     </AppPopup>
 
     <AppButton
@@ -42,4 +50,8 @@
       deep: true
     }
   )
+
+  function resetApp() {
+    store.resetApp()
+  }
 </script>

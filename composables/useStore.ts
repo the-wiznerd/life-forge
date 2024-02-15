@@ -1,4 +1,5 @@
 import { AppState } from '#imports'
+import { unsetLocalStorageValue } from '~/utilities/localStorage'
 
 const StorageKey = {
   FirstName: 'firstName',
@@ -32,7 +33,7 @@ export const useStore = defineStore('store', () => {
   /**
    * Whether or not the user has onboarded and has a profile.
    */
-  const hasUserProfile = computed(() => Boolean(userProfile.value.firstName))
+  const hasUserProfile = computed(() => Boolean(_userProfile.value.firstName))
 
   /**
    * Whether or not the app should currently be showing the user profile.
@@ -62,7 +63,8 @@ export const useStore = defineStore('store', () => {
   const incompleteCards = computed(() => {
     const _cards: Card[] = []
     for (const card of allCards.value) {
-      if (!completedCards.value.find(x => x.id === card.id)) {
+      if (!_completedCards.value.find(x => x.id === card.id)) {
+        console.log(card.id)
         _cards.push(card)
       }
     }
@@ -87,18 +89,18 @@ export const useStore = defineStore('store', () => {
    * Mark a card complete.
    */
   function completeCard(card: Card) {
-    if (card.id === currentCard.value?.id) {
+    if (card.id === _currentCard.value?.id) {
       unsetCurrentCard()
     }
 
-    if (completedCards.value.includes(card)) {
+    if (_completedCards.value.includes(card)) {
       return
     }
 
-    completedCards.value.push(card)
+    _completedCards.value.push(card)
     setLocalStorageValue(
       StorageKey.CompletedCards,
-      completedCards.value.map(x => x.id)
+      _completedCards.value.map(x => x.id)
     )
   }
 
@@ -151,6 +153,16 @@ export const useStore = defineStore('store', () => {
   }
 
   /**
+   * Reset app data and reload the window.
+   */
+  function resetApp() {
+    Object.values(StorageKey).forEach(key => {
+      unsetLocalStorageValue(key)
+    })
+    location.reload()
+  }
+
+  /**
    * Log current state info to the console.
    */
   function logState() {
@@ -200,7 +212,7 @@ export const useStore = defineStore('store', () => {
     Object.values(_completedCardIds).forEach(id => {
       const _card = allCards.value.find(x => x.id === id)
       if (_card) {
-        completedCards.value.push(_card)
+        _completedCards.value.push(_card)
       }
     })
   }
@@ -232,6 +244,7 @@ export const useStore = defineStore('store', () => {
     drawCard,
     unsetCurrentCard,
     logState,
-    setShowUserProfile
+    setShowUserProfile,
+    resetApp
   }
 })

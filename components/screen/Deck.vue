@@ -25,7 +25,7 @@
       <BonusInfoForm
         v-if="currentCard"
         :card="currentCard"
-        @submit="addScores"
+        @submit="addStats"
       />
     </AppPopup>
 
@@ -109,34 +109,32 @@
         personalCare: 0
       }
       scores[currentCard.value.statCategory] += currentCard.value.value
-      addScores(scores)
+      addStats(scores)
     }
   }
 
-  function addScores(scores: Record<StatCategory, number>) {
+  function addStats(stats: Record<StatCategory, number>) {
     popup.value.hide()
     if (!currentCard.value) {
       return
     }
 
     // Add bonuses.
-    store.setHealthStat(store.userProfile.health + scores.health)
-    store.setCleanlinessStat(store.userProfile.cleanliness + scores.cleanliness)
+    store.setHealthStat(store.userProfile.health + stats.health)
+    store.setCleanlinessStat(store.userProfile.cleanliness + stats.cleanliness)
     store.setPersonalCareStat(
-      store.userProfile.personalCare + scores.personalCare
+      store.userProfile.personalCare + stats.personalCare
     )
 
     // Show powerups.
-    for (const category in scores) {
-      const score = scores[category as keyof typeof scores]
+    for (const category in stats) {
+      const score = stats[category as keyof typeof stats]
       if (score) {
         emitter.value.showPowerUp(category, score)
       }
     }
 
     // Mark the card complete.
-    if (currentCard.value) {
-      store.completeCard(currentCard.value)
-    }
+    store.completeCard(currentCard.value)
   }
 </script>
