@@ -39,6 +39,9 @@
         Draw Card
       </AppButton>
     </div>
+
+    <!-- Power up emitter -->
+    <PowerUpEmitter ref="emitter" />
   </div>
 </template>
 
@@ -47,6 +50,7 @@
 
   const shuffledCards = ref<Card[]>([])
   const popup = ref()
+  const emitter = ref()
 
   const currentCard = computed(() => store.currentCard)
 
@@ -119,6 +123,14 @@
     store.userProfile.health += scores.health
     store.userProfile.cleanliness += scores.cleanliness
     store.userProfile.personalCare += scores.personalCare
+
+    // Show powerups.
+    for (const category in scores) {
+      const score = scores[category as keyof typeof scores]
+      if (score) {
+        emitter.value.showPowerUp(category, score)
+      }
+    }
 
     // Mark the card complete.
     if (currentCard.value) {

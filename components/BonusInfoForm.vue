@@ -19,7 +19,7 @@
             <span
               :class="`card-bonus__value stat-category--${bonus.statCategory}`"
             >
-              {{ bonus.value }}<small>XP</small>
+              {{ bonus.value }}<small>xp</small>
             </span>
             <span class="card-bonus__description">
               &nbsp;{{ bonus.description }}
@@ -33,7 +33,7 @@
             <span
               :class="`card-bonus__value stat-category--${bonus.statCategory}`"
             >
-              {{ bonus.value }}<small>XP</small>
+              {{ bonus.value }}<small>xp</small>
             </span>
             <span class="card-bonus__description">
               &nbsp;{{ bonus.description }}
@@ -86,11 +86,16 @@
       cleanliness: 0,
       personalCare: 0
     }
+
+    // Add bonuses.
     for (const bonusIndex in bonusMultipliers.value) {
       const bonus = props.card.bonuses[bonusIndex]
       scores[bonus.statCategory] +=
         bonus.value * bonusMultipliers.value[bonusIndex]
     }
+
+    // Add base card value.
+    scores[props.card.statCategory] += props.card.value
 
     emit('submit', scores)
   }
