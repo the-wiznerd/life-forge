@@ -1,8 +1,8 @@
 <template>
   <div>
-    <ScreenLoading v-if="appState === AppState.Loading" />
-    <ScreenProfile v-else-if="appState === AppState.Profile" />
-    <ScreenDeck v-else-if="appState === AppState.Deck" />
+    <ScreenLoading v-if="store.appState === AppState.Loading" />
+    <ScreenOnboarding v-else-if="store.appState === AppState.Onboarding" />
+    <ScreenDeck v-else-if="store.appState === AppState.Deck" />
 
     <UserProfile
       :class="{ 'is-showing': store.hasUserProfile && store.showUserProfile }"
@@ -20,20 +20,5 @@
 </template>
 
 <script setup lang="ts">
-  enum AppState {
-    Loading,
-    Profile,
-    Deck
-  }
-
   const store = useStore()
-  const appState = ref<AppState>(AppState.Loading)
-
-  onMounted(() => {
-    if (!store.hasUserProfile) {
-      appState.value = AppState.Profile
-    } else {
-      appState.value = AppState.Deck
-    }
-  })
 </script>

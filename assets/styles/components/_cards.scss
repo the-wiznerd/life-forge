@@ -63,6 +63,7 @@ $border-width: 6px;
 .card__face {
   background-color: var(--card-color-bg);
   border: 2px solid var(--card-color-bg-tint);
+  color: var(--color-darker);
   display: flex;
   flex-direction: column;
   padding: 5px;
